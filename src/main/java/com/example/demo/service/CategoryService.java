@@ -49,4 +49,12 @@ public class CategoryService {
 	public Integer findSmallId(String smallCategoryName) {
 		return categoryRepository.findSmallId(smallCategoryName);
 	}
+	
+	public Category findCategory(Integer categoryId) {
+		return categoryRepository.findCategory(categoryId);
+	}
+	
+	public Category findCategoryByNameAll(String nameAll) {
+		return categoryRepository.findCategoryByNameAll(nameAll);
+	}
 }

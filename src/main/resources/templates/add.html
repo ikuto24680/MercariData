@@ -26,7 +26,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="./list.html">Rakus Items</a>
+      <a class="navbar-brand" th:href="@{/item/list}">Rakus Items</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <div>
@@ -42,7 +42,7 @@
 
   <!-- details -->
   <div id="input-main" class="container">
-    <a type="button" class="btn btn-default" href="./list.html"><i class="fa fa-reply"></i> back</a>
+    <a type="button" class="btn btn-default" onclick="window.history.back();"><i class="fa fa-reply"></i> back</a>
     <h2>Add</h2>
 
     <!-- add form -->
@@ -67,7 +67,7 @@
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label">category</label>
         <div class="col-sm-8">
-          <select class="form-control" name="bigcategory" id="bigcategory">
+          <select class="form-control" name="bigCategory" id="bigCategory">
             <option th:each="bigCategory : ${bigCategoryList}" th:value="${bigCategory.name}" th:text="${bigCategory.name}">bigCategory1</option>
           </select>
         </div>
@@ -75,7 +75,7 @@
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label"></label>
         <div class="col-sm-8">
-          <select class="form-control" name="middlecategory" id="middleCategory">
+          <select class="form-control" name="middleCategory" id="middleCategory">
             <option th:each="middleCategory : ${middleList}" th:value="${middleCategory.name}" th:text="${middleCategory.name}">middleCategory1</option>
           </select>
         </div>
@@ -83,7 +83,7 @@
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label"></label>
         <div class="col-sm-8">
-          <select class="form-control" name="smallcategory" id="smallCategory">
+          <select class="form-control" name="smallCategory" id="smallCategory">
             <option th:each="smallCategory : ${smallList}" th:value="${smallCategory.name}" th:text="${smallCategory.name}">smallCategory1</option>
           </select>
         </div>

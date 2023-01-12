@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -28,21 +28,21 @@
     <div class="panel panel-default">
       <div class="panel-heading">Register Account</div>
       <div class="panel-body">
-        <form action="#" method="POST">
+        <form action="#" method="POST" th:action="@{/register}">
           <div class="form-group">
             <label for="mail">mail address</label>
-            <input type="email" class="form-control" id="mail">
+            <input type="email" class="form-control" id="mail" name="name">
           </div>
           <div class="form-group">
             <label for="password">password</label>
-            <input type="text" class="form-control" id="password">
+            <input type="text" class="form-control" id="password" name="password">
           </div>
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
     </div>
     <div>
-      <a type="button" class="btn btn-default" href="./login.html"><i class="fa fa-reply"></i>&nbsp;Login page</a>
+      <a type="button" class="btn btn-default" th:href="@{/toLogin}"><i class="fa fa-reply"></i>&nbsp;Login page</a>
     </div>
 </body>
 </html>

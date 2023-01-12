@@ -62,7 +62,7 @@ public class CategoryRepository {
 
 		return category;
 	};
-	
+
 	@Autowired
 	private static final RowMapper<Category> FINDCATEGORYID_ROWMAPPER = (rs, i) -> {
 
@@ -99,7 +99,6 @@ public class CategoryRepository {
 		List<Category> list = template.query(sql, param, FINDBY_CATEGORYNAME_ROW_MAPPER);
 		try {
 			list.get(0);
-			System.out.println("WWWWWWWWWWWWWWWWWWWWW");
 
 			return true;
 		} catch (Exception e) {
@@ -117,7 +116,6 @@ public class CategoryRepository {
 		List<String> FBCN2 = null;
 		try {
 			list.get(0);
-			System.out.println("WWWWWWWWWWWWWWWWWWWWW");
 			return true;
 		} catch (Exception e) {
 			FBCN2.add(name);
@@ -244,11 +242,9 @@ public class CategoryRepository {
 
 	public Category findName(String categoryName) {
 		if (categoryName.equals("")) {
-			System.out.println("categoryNameは" + categoryName + "です");
 		}
 		int NameCount = 0;
 		NameCount += 1;
-		System.out.println(NameCount + "|" + categoryName + "|");
 
 		falseList = new ArrayList<>();
 
@@ -259,10 +255,8 @@ public class CategoryRepository {
 		List<Category> categoryList = template.query(sql, param, FIND_ALLNAME_ROWMAPPER);
 		try {
 			categoryList.get(0);
-			System.out.println("CategoryのfindNameでtrue");
 			return categoryList.get(0);
 		} catch (Exception e) {
-			System.out.println("CategoryのfindNameでfalseでcatch");
 			falseList.add(categoryName);
 			return null;
 		}
@@ -277,7 +271,6 @@ public class CategoryRepository {
 		int SFCcount = 0;
 		for (String one : falseList) {
 			SFCcount += 1;
-			System.out.println(SFCcount + " : " + one);
 		}
 	}
 
@@ -296,7 +289,7 @@ public class CategoryRepository {
 
 		return categoryList;
 	}
-	
+
 	public List<Category> showMiddleCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE parent IS NOT NULL AND name_all IS NULL;";
 
@@ -304,7 +297,7 @@ public class CategoryRepository {
 
 		return categoryList;
 	}
-	
+
 	public List<Category> showSmallCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE parent IS NOT NULL AND name_all IS NOT NULL;";
 
@@ -312,63 +305,93 @@ public class CategoryRepository {
 
 		return categoryList;
 	}
-	
+
 	public Category findCategory(String middleCategoryId) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NOT NULL AND name_all IS NULL AND id = :middleCategoryId;";
-		
+
 		SqlParameterSource param = new MapSqlParameterSource().addValue("middleCategoryId", middleCategoryId);
 
-		List<Category> categoryList = template.query(sql,param, FINDAID_ROWMAPPER);
+		List<Category> categoryList = template.query(sql, param, FINDAID_ROWMAPPER);
 
 		try {
 			categoryList.get(0);
 			return categoryList.get(0);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	public Integer findMiddleId(String middleCategoryName) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NOT NULL AND name_all IS NULL AND name = :middleCategoryName;";
-		
+
 		SqlParameterSource param = new MapSqlParameterSource().addValue("middleCategoryName", middleCategoryName);
 
-		List<Category> categoryList = template.query(sql,param, FINDAID_ROWMAPPER);
+		List<Category> categoryList = template.query(sql, param, FINDAID_ROWMAPPER);
 
 		try {
 			categoryList.get(0);
 			return categoryList.get(0).getId();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	public Integer findBigId(String bigCategoryName) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NULL AND name_all IS NULL AND name = :bigCategoryName;";
-		
+
 		SqlParameterSource param = new MapSqlParameterSource().addValue("bigCategoryName", bigCategoryName);
 
-		List<Category> categoryList = template.query(sql,param, FINDAID_ROWMAPPER);
+		List<Category> categoryList = template.query(sql, param, FINDAID_ROWMAPPER);
 
 		try {
 			categoryList.get(0);
 			return categoryList.get(0).getId();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}
 
 	public Integer findSmallId(String smallCategoryName) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NOT NULL AND name_all IS NOT NULL AND name = :smallCategoryName;";
-		
+
 		SqlParameterSource param = new MapSqlParameterSource().addValue("smallCategoryName", smallCategoryName);
 
-		List<Category> categoryList = template.query(sql,param, FINDAID_ROWMAPPER);
+		List<Category> categoryList = template.query(sql, param, FINDAID_ROWMAPPER);
 
 		try {
 			categoryList.get(0);
 			return categoryList.get(0).getId();
-		}catch(Exception e) {
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Category findCategory(Integer categoryId) {
+
+		String sql = "SELECT id,parent,name,name_all FROM category WHERE id = :categoryId;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("categoryId", categoryId);
+
+		List<Category> categoryList = template.query(sql, param, FINDAID_ROWMAPPER);
+		try {
+			categoryList.get(0);
+			return categoryList.get(0);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Category findCategoryByNameAll(String nameAll) {
+
+		String sql = "SELECT id,name_all FROM category WHERE name_all = :nameAll;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("nameAll", nameAll);
+
+		List<Category> categoryList = template.query(sql, param, FIND_ALLNAME_ROWMAPPER);
+		try {
+			categoryList.get(0);
+			return categoryList.get(0);
+		} catch (Exception e) {
 			return null;
 		}
 	}

@@ -37,7 +37,7 @@ $('#bigcategory').change(function() {
 		console.log(middleList);
 		
 	}).fail(function(XMLHttpRequest,textStatus,errorThrown){
-		alert('値がないんやけど。');
+		alert('値がないんやけどnnnn。');
 	});
 
 

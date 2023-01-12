@@ -11,8 +11,8 @@ window.onload = function() {
 
 }
 
-$('#bigcategory').change(function() {
-	var bigCategory = $('#bigcategory').val();
+$('#bigCategory').change(function() {
+	var bigCategory = $('#bigCategory').val();
 	console.log(bigCategory);
 	$.ajax({
 		url: 'http://localhost:8080/item/middle',
@@ -23,6 +23,7 @@ $('#bigcategory').change(function() {
 		},
 		async: true,
 	}).done(function(middleList){
+			console.log(middleList);
 		//selectに当てはめる
 		let $middle = $("#middleCategory");
 		let $small = $("#smallCategory");
