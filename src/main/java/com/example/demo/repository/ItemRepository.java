@@ -198,3 +198,7 @@ public class ItemRepository {
 
 	// 検索フォームから検索する用のメソッドもつくるorResultSetに置き換える。
 }
+
+class kaneko{
+	
+}
