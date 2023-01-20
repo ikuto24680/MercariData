@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -60,16 +59,6 @@ public class ItemRepository {
 		return itemList;
 	};
 
-	@Autowired
-	private static final RowMapper<ItemCategory> ITEM_ROW_MAPPER = new BeanPropertyRowMapper<>(ItemCategory.class);
-
-	public List<Item> findAll() {
-
-		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items ;";
-
-		return template.query(sql, ITEM_LIST_ROW_MAPPER);
-	}
-
 	public void insert(Item item) {
 
 		String sql = "INSERT INTO items (name,condition,category,brand,price,shipping,description) VALUES (:name,:condition,:category,:brand,:price,:shipping,:description);";
@@ -78,19 +67,6 @@ public class ItemRepository {
 
 		template.update(sql, param);
 	}
-
-	/**
-	 * 
-	 * @param allCategory
-	 * @param brand
-	 * @return
-	 */
-//	public List<Item> findItemListByBrandCategoryPages(Integer allCategory, String brand,Integer startPage,Integer endPage){
-//		
-//		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items WHERE category = :allCategory AND brand = :brand AND ORDER BY name;";
-//		
-//		
-//	}
 
 	/**
 	 * @param itemName
@@ -197,8 +173,4 @@ public class ItemRepository {
 	}
 
 	// 検索フォームから検索する用のメソッドもつくるorResultSetに置き換える。
-}
-
-class kaneko{
-	
 }
