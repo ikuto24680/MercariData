@@ -17,6 +17,7 @@ import com.example.demo.domain.Item;
 import com.example.demo.domain.ItemCategory;
 import com.example.demo.enums.ItemConstant;
 import com.example.demo.enums.ItemConstant.Condition;
+import com.example.demo.enums.PageCountConstant.PageCount;
 import com.example.demo.enums.SearchItemFotmConstant.SearchItem;
 import com.example.demo.form.ItemAddForm;
 import com.example.demo.form.ItemEditForm;
@@ -38,9 +39,6 @@ public class ItemController {
 	@Autowired
 	private CategoryService categoryService;
 
-	int ListPageCount = 0;
-	int searchPageCount = 0;
-
 	/**
 	 * 検索フォームとページングに基づいて該当のListを返し、listに遷移する.
 	 * @param form
@@ -50,8 +48,9 @@ public class ItemController {
 	 */
 	@GetMapping("/search")
 	public String showList(ItemSearchForm form, Model model, Integer page) {
-		ListPageCount = 0;
-		searchPageCount = 0;
+		
+		PageCount.setPageCount(0);
+		
 		SearchItem searchItemInstance = SearchItem.getSearchItemForm();
 		SearchItem.resetItemSearchForm();
 
@@ -87,12 +86,9 @@ public class ItemController {
 
 		if (page != null) {
 			if (page == 1) {
-				ListPageCount += 1;
+				PageCount.setPageCountPlusOne();
 			} else {
-				ListPageCount -= 1;
-				if (ListPageCount < 0) {
-					ListPageCount = 0;
-				}
+				PageCount.setPageCountMinusOne();
 			}
 			if (searchItemInstance.isSearch()) {
 				ItemSearchForm form = new ItemSearchForm();
@@ -101,14 +97,14 @@ public class ItemController {
 				form.setBigCategory(searchItemInstance.getBigCategory());
 				form.setMiddleCategory(searchItemInstance.getMiddleCategory());
 				form.setSmallCategory(searchItemInstance.getSmallCategory());
-				itemList = itemService.findBySearchForm(form, ListPageCount);
+				itemList = itemService.findBySearchForm(form, PageCount.getPageCount());
 
 			} else {
-				itemList = itemService.findList(ListPageCount);
+				itemList = itemService.findList(PageCount.getPageCount());
 			}
 		} else {
 			SearchItem.resetItemSearchForm();
-			itemList = itemService.findList(ListPageCount);
+			itemList = itemService.findList(PageCount.getPageCount());
 		}
 		model.addAttribute("itemList", itemList);
 
