@@ -3,8 +3,6 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,9 +30,6 @@ public class ItemController {
 
 	@Autowired
 	private CategoryService categoryService;
-
-	@Autowired
-	private HttpSession session;
 
 	int ListPageCount = 0;
 	int searchPageCount = 0;
@@ -111,7 +106,6 @@ public class ItemController {
 
 		return "list";
 	}
-
 
 	@GetMapping("/detail")
 	public String detail(Integer itemId, Model model) {
@@ -191,14 +185,14 @@ public class ItemController {
 	@GetMapping("/toEdit")
 	public String edit(Integer itemId, Model model) {
 		ItemCategory detail = itemService.searchDetail(itemId);
-		
+
 		model.addAttribute("detail", detail);
-		
+
 		String[] category = detail.getNameAll().split("/");
 		model.addAttribute("bigCategory", category[0]);
 		model.addAttribute("middleCategory", category[1]);
 		model.addAttribute("smallCategory", category[2]);
-		
+
 		List<Category> bigCategoryList = categoryService.showBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
 		List<Category> middleCategoryList = categoryService.showMiddleCategory();
@@ -229,13 +223,4 @@ public class ItemController {
 		searchSmall = "";
 		search = false;
 	}
-	
-//	public void showField() {
-//		System.out.println("フィールド変数　name" + searchName);
-//		System.out.println("フィールド変数　brand" + searchBrand);
-//		System.out.println("フィールド変数　BigCategory" + searchBig);
-//		System.out.println("フィールド変数　MiddleCategory" + searchMiddle);
-//		System.out.println("フィールド変数　SmallCategory" + searchSmall);
-//		System.out.println("フィールド変数　search" + search);
-//	}
 }
