@@ -11,9 +11,10 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.domain.Category;
+import com.example.demo.interfaces.CategoryRepositoryInterface;
 
 @Repository
-public class CategoryRepository {
+public class CategoryRepository implements CategoryRepositoryInterface {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
@@ -52,6 +53,7 @@ public class CategoryRepository {
 		return category;
 	};
 
+	@Override
 	public void insert(Category category) {
 
 		String sql = "INSERT INTO category (parent,name,name_all) VALUES (:parent, :name, :nameAll);";
@@ -61,6 +63,7 @@ public class CategoryRepository {
 		template.update(sql, param);
 	}
 
+	@Override
 	public Integer findId(String name) {
 
 		String sql = "SELECT id, name FROM category WHERE name = :name ;";
@@ -80,6 +83,7 @@ public class CategoryRepository {
 		System.out.println("falseCount = " + this.falseCount);
 	}
 
+	@Override
 	public List<Category> showCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category ;";
 
@@ -88,6 +92,7 @@ public class CategoryRepository {
 		return categoryList;
 	}
 
+	@Override
 	public List<Category> showBigCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE parent IS NULL AND name_all IS NULL;";
 
@@ -96,6 +101,7 @@ public class CategoryRepository {
 		return categoryList;
 	}
 
+	@Override
 	public List<Category> showMiddleCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE parent IS NOT NULL AND name_all IS NULL;";
 
@@ -104,6 +110,7 @@ public class CategoryRepository {
 		return categoryList;
 	}
 
+	@Override
 	public List<Category> showSmallCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE parent IS NOT NULL AND name_all IS NOT NULL;";
 
@@ -112,6 +119,7 @@ public class CategoryRepository {
 		return categoryList;
 	}
 
+	@Override
 	public Category findCategory(String middleCategoryId) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NOT NULL AND name_all IS NULL AND id = :middleCategoryId;";
 
@@ -127,6 +135,7 @@ public class CategoryRepository {
 		}
 	}
 
+	@Override
 	public Integer findMiddleId(String middleCategoryName) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NOT NULL AND name_all IS NULL AND name = :middleCategoryName;";
 
@@ -142,6 +151,7 @@ public class CategoryRepository {
 		}
 	}
 
+	@Override
 	public Integer findBigId(String bigCategoryName) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NULL AND name_all IS NULL AND name = :bigCategoryName;";
 
@@ -157,6 +167,7 @@ public class CategoryRepository {
 		}
 	}
 
+	@Override
 	public Integer findSmallId(String smallCategoryName) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NOT NULL AND name_all IS NOT NULL AND name = :smallCategoryName;";
 
@@ -172,6 +183,7 @@ public class CategoryRepository {
 		}
 	}
 
+	@Override
 	public Category findCategory(Integer categoryId) {
 
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE id = :categoryId;";
@@ -187,6 +199,7 @@ public class CategoryRepository {
 		}
 	}
 
+	@Override
 	public Category findCategoryByNameAll(String nameAll) {
 
 		String sql = "SELECT id,name_all FROM category WHERE name_all = :nameAll;";

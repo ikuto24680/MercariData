@@ -171,5 +171,5 @@ public class ItemRepository {
 		template.update(sql, param);
 		System.out.println("update完了したよん");
 	}
-
+}
 	// 検索フォームから検索する用のメソッドもつくるorResultSetに置き換える。
