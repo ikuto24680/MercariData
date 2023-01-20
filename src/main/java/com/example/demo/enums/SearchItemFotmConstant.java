@@ -6,7 +6,7 @@ public class SearchItemFotmConstant {
 
 	public enum SearchItem {
 
-		INSTANCE;
+		SEARCHITEM;
 
 		private String name;
 		private String bigCategory;
@@ -15,8 +15,8 @@ public class SearchItemFotmConstant {
 		private String brand;
 		private boolean search;
 
-		public static SearchItem getSearchItemForm() {
-			return INSTANCE; // これで6項目全て返せているのか？？
+		public static SearchItem getSearchItemForm(){
+			return SEARCHITEM; // これで6項目全て返せているのか？？
 		}
 
 		public String getName() {
@@ -24,7 +24,7 @@ public class SearchItemFotmConstant {
 		}
 
 		public void setName(String name) {
-			INSTANCE.name = name;
+			SEARCHITEM.name = name;
 		}
 
 		public String getBigCategory() {
@@ -68,21 +68,21 @@ public class SearchItemFotmConstant {
 		}
 
 		public static void setItemSearchForm(ItemSearchForm form) {
-			INSTANCE.setName(form.getName());
-			INSTANCE.setBigCategory(form.getBigCategory());
-			INSTANCE.setMiddleCategory(form.getMiddleCategory());
-			INSTANCE.setSmallCategory(form.getSmallCategory());
-			INSTANCE.setBrand(form.getBrand());
-			INSTANCE.setSearch(true);
+			SEARCHITEM.setName(form.getName());
+			SEARCHITEM.setBigCategory(form.getBigCategory());
+			SEARCHITEM.setMiddleCategory(form.getMiddleCategory());
+			SEARCHITEM.setSmallCategory(form.getSmallCategory());
+			SEARCHITEM.setBrand(form.getBrand());
+			SEARCHITEM.setSearch(true);
 		}
 
 		public static void resetItemSearchForm() {
-			INSTANCE.setName("");
-			INSTANCE.setBigCategory("");
-			INSTANCE.setMiddleCategory("");
-			INSTANCE.setSmallCategory("");
-			INSTANCE.setBrand("");
-			INSTANCE.setSearch(false);
+			SEARCHITEM.setName("");
+			SEARCHITEM.setBigCategory("");
+			SEARCHITEM.setMiddleCategory("");
+			SEARCHITEM.setSmallCategory("");
+			SEARCHITEM.setBrand("");
+			SEARCHITEM.setSearch(false);
 		}
 
 	}
