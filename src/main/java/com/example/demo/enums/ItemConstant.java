@@ -7,7 +7,7 @@ public class ItemConstant {
 		特価販売中,
 		販売NG,
 	}
-	
+
 	public static Condition ConditionSwitch(Integer conditionNum) throws Exception {
 		switch(conditionNum) {
 		case 1:

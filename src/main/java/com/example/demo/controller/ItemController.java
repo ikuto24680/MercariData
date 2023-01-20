@@ -17,6 +17,7 @@ import com.example.demo.domain.Item;
 import com.example.demo.domain.ItemCategory;
 import com.example.demo.enums.ItemConstant;
 import com.example.demo.enums.ItemConstant.Condition;
+import com.example.demo.enums.SearchItemFotmConstant.SearchItem;
 import com.example.demo.form.ItemAddForm;
 import com.example.demo.form.ItemEditForm;
 import com.example.demo.form.ItemSearchForm;
@@ -39,12 +40,6 @@ public class ItemController {
 
 	int ListPageCount = 0;
 	int searchPageCount = 0;
-	String searchName = "";
-	String searchBrand = "";
-	String searchBig = "";
-	String searchMiddle = "";
-	String searchSmall = "";
-	boolean search = false;
 
 	/**
 	 * 検索フォームとページングに基づいて該当のListを返し、listに遷移する.
@@ -57,19 +52,19 @@ public class ItemController {
 	public String showList(ItemSearchForm form, Model model, Integer page) {
 		ListPageCount = 0;
 		searchPageCount = 0;
-
-		resetSearch();
+		SearchItem searchItemInstance = SearchItem.getSearchItemForm();
+		SearchItem.resetItemSearchForm();
 
 		List<ItemCategory> itemList = itemService.findBySearchForm(form, page);
 		model.addAttribute("itemList", itemList);
 
-		searchName = form.getName();
-		searchBrand = form.getBrand();
-		searchBig = form.getBigCategory();
-		searchMiddle = form.getMiddleCategory();
-		searchSmall = form.getSmallCategory();
-		search = true;
-
+		searchItemInstance.setName(form.getName());
+		searchItemInstance.setBigCategory(form.getBigCategory());
+		searchItemInstance.setMiddleCategory(form.getMiddleCategory());
+		searchItemInstance.setSmallCategory(form.getSmallCategory());
+		searchItemInstance.setBrand(form.getBrand());
+		searchItemInstance.setSearch(true);
+		
 		List<Category> bigCategoryList = categoryService.showBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
 		List<Category> middleCategoryList = categoryService.showMiddleCategory();
@@ -88,6 +83,7 @@ public class ItemController {
 	@RequestMapping("/list")
 	public String list(Model model, Integer page) {
 		List<ItemCategory> itemList;
+		SearchItem searchItemInstance = SearchItem.getSearchItemForm();
 
 		if (page != null) {
 			if (page == 1) {
@@ -98,20 +94,20 @@ public class ItemController {
 					ListPageCount = 0;
 				}
 			}
-			if (search) {
+			if (searchItemInstance.isSearch()) {
 				ItemSearchForm form = new ItemSearchForm();
-				form.setName(searchName);
-				form.setBrand(searchBrand);
-				form.setBigCategory(searchBig);
-				form.setMiddleCategory(searchMiddle);
-				form.setSmallCategory(searchSmall);
+				form.setName(searchItemInstance.getName());
+				form.setBrand(searchItemInstance.getBrand());
+				form.setBigCategory(searchItemInstance.getBigCategory());
+				form.setMiddleCategory(searchItemInstance.getMiddleCategory());
+				form.setSmallCategory(searchItemInstance.getSmallCategory());
 				itemList = itemService.findBySearchForm(form, ListPageCount);
 
 			} else {
 				itemList = itemService.findList(ListPageCount);
 			}
 		} else {
-			resetSearch();
+			SearchItem.resetItemSearchForm();
 			itemList = itemService.findList(ListPageCount);
 		}
 		model.addAttribute("itemList", itemList);
@@ -274,12 +270,4 @@ public class ItemController {
 		return "detail";
 	}
 
-	public void resetSearch() {
-		searchName = "";
-		searchBrand = "";
-		searchBig = "";
-		searchMiddle = "";
-		searchSmall = "";
-		search = false;
-	}
 }
