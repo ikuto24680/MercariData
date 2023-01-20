@@ -18,7 +18,7 @@ public class LoginUserDetailService implements UserDetailsService {
 
 	@Autowired
 	private LoginUesrRepository repo;
-	
+
 	public LoginUserDetailService(LoginUesrRepository repo) {
 		this.repo = repo;
 	}
@@ -26,12 +26,8 @@ public class LoginUserDetailService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
-			System.out.println("loadUserByUserNameにきたよ");
-			System.out.println("username = " + username);
-			
 			LoginUser user = repo.findByMail(username);
 			String password = user.getPassword();
-			
 			LoginUser loginUser = new LoginUser();
 			loginUser.setName(username);
 			loginUser.setPassword(password);
@@ -44,7 +40,7 @@ public class LoginUserDetailService implements UserDetailsService {
 	// signupメソッド（登録メソッドと同義）
 	public void register(InsertUserForm form, Model model) {
 		try {
-				BCryptPasswordEncoder BCPE = new BCryptPasswordEncoder();
+			BCryptPasswordEncoder BCPE = new BCryptPasswordEncoder();
 			LoginUser user = new LoginUser();
 			user.setName(form.getName());
 			user.setPassword(BCPE.encode(form.getPassword()));// あとでハッシュ化も

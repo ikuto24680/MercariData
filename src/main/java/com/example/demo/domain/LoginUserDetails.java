@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class LoginUserDetails implements UserDetails{
+public class LoginUserDetails implements UserDetails {
 
 	/**
 	 * 
@@ -13,14 +13,10 @@ public class LoginUserDetails implements UserDetails{
 	private static final long serialVersionUID = 1L;
 	private final LoginUser loginUser;
 	private final Collection<? extends GrantedAuthority> authorities;
-	
+
 	public LoginUserDetails(LoginUser loginUser) {
 		this.loginUser = loginUser;
 		this.authorities = null;
-
-	}
-
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
