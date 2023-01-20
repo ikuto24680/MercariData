@@ -17,6 +17,7 @@ public class LoginUserDetails implements UserDetails {
 	public LoginUserDetails(LoginUser loginUser) {
 		this.loginUser = loginUser;
 		this.authorities = null;
+	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
