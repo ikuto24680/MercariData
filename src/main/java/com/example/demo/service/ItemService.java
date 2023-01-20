@@ -2,11 +2,8 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.example.demo.domain.Item;
 import com.example.demo.domain.ItemCategory;
@@ -22,44 +19,35 @@ public class ItemService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
-	@Autowired
-	private HttpSession session;
 
 	public List<Item> showList(ItemSearchForm form) {
 		String name = form.getName();
-		String bigCategory = form.getBigCategory();
-		String middleCategory = form.getMiddleCategory();
-		String smallCategory = form.getSmallCategory();
-		String brand = form.getBrand();
 		StringBuffer sql = new StringBuffer();
-		
+
 		sql.append("SELECT id,name,condition,category,brand,price,shipping,description FROM items WHERE ");
-		if(name!=null) {
+		if (name != null) {
 			sql.append(" name LIKE '%:name%' ");
 		}
 
-		
 		List<Item> itemList = null;
-		
 
 		return itemList;
 	}
-	
+
 	public void addItem(Item item) {
 		itemrepository.insert(item);
 	}
-	
-	public List<ItemCategory> findList(Integer pageCount){
+
+	public List<ItemCategory> findList(Integer pageCount) {
 		return itemrepository.findList(pageCount);
 	}
-	
+
 	public ItemCategory searchDetail(Integer itemId) {
 		return itemrepository.searchDetail(itemId);
 	}
-	
-	public List<ItemCategory> findBySearchForm(ItemSearchForm form,Integer page) {
-		
+
+	public List<ItemCategory> findBySearchForm(ItemSearchForm form, Integer page) {
+
 		String name = form.getName();
 		String brand = form.getBrand();
 		Integer categoryId = 0;
@@ -75,12 +63,12 @@ public class ItemService {
 				&& form.getSmallCategory() != null) {
 			categoryId = categoryRepository.findSmallId(form.getSmallCategory());
 		}
-		
-		return itemrepository.findBySearchForm(name, brand, categoryId,page);
+
+		return itemrepository.findBySearchForm(name, brand, categoryId, page);
 	}
-	
+
 	public void edit(Item item) {
 		itemrepository.update(item);
 	}
-	
+
 }
