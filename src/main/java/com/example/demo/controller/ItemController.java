@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.domain.Category;
 import com.example.demo.domain.Item;
 import com.example.demo.domain.ItemCategory;
+import com.example.demo.enums.ItemConstant;
+import com.example.demo.enums.ItemConstant.Condition;
 import com.example.demo.form.ItemAddForm;
 import com.example.demo.form.ItemEditForm;
 import com.example.demo.form.ItemSearchForm;
@@ -129,11 +131,14 @@ public class ItemController {
 	 * @param itemId
 	 * @param model
 	 * @return
+	 * @throws Exception 
 	 */
 	@GetMapping("/detail")
-	public String detail(Integer itemId, Model model) {
+	public String detail(Integer itemId, Model model) throws Exception {
 		ItemCategory detail = itemService.searchDetail(itemId);
 		model.addAttribute("detail", detail);
+		Condition condition = ItemConstant.ConditionSwitch(detail.getCondition());
+		model.addAttribute("condition",condition);
 		return "detail";
 	}
 
@@ -236,7 +241,6 @@ public class ItemController {
 		ItemCategory detail = itemService.searchDetail(itemId);
 
 		model.addAttribute("detail", detail);
-
 		String[] category = detail.getNameAll().split("/");
 		model.addAttribute("bigCategory", category[0]);
 		model.addAttribute("middleCategory", category[1]);
