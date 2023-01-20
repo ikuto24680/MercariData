@@ -17,11 +17,6 @@ public class LoginUserDetails implements UserDetails {
 	public LoginUserDetails(LoginUser loginUser) {
 		this.loginUser = loginUser;
 		this.authorities = null;
-		System.out.println("GHI");
-		System.out.println("JKL");
-
-	}
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub

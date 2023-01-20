@@ -61,15 +61,6 @@ public class CategoryRepository {
 		template.update(sql, param);
 	}
 
-	public List<Category> findAll() {
-
-		String sql = "SELECT id,parent,name,name_all FROM category ;";
-
-		List<Category> categoryList = template.query(sql, CATEGORY_ROW_MAPPER);
-
-		return categoryList;
-	}
-
 	public Integer findId(String name) {
 
 		String sql = "SELECT id, name FROM category WHERE name = :name ;";

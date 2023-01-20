@@ -28,8 +28,6 @@ public class LoginUserDetailService implements UserDetailsService {
 		try {
 			LoginUser user = repo.findByMail(username);
 			String password = user.getPassword();
-//			Collection<GrantedAuthority> authorities = new ArrayList<>();
-//			authorities.add(new SimpleGrantedAuthority(user.getAuthority().toString()));
 			LoginUser loginUser = new LoginUser();
 			loginUser.setName(username);
 			loginUser.setPassword(password);
@@ -49,7 +47,6 @@ public class LoginUserDetailService implements UserDetailsService {
 			user.setAuthority(2);
 			repo.insert(user);
 		} catch (Exception e) {
-			model.addAttribute("signupError", "ユーザー登録に失敗しました。");
 		}
 	}
 

@@ -223,5 +223,4 @@ public class ItemController {
 		searchSmall = "";
 		search = false;
 	}
-
 }
