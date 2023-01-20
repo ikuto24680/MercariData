@@ -2,8 +2,11 @@ package com.example.demo.form;
 
 public class loginForm {
 
+	/** name */
 	private String name;
+	/** password */
 	private String password;
+	
 	public String getName() {
 		return name;
 	}

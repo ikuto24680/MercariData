@@ -13,6 +13,10 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.domain.Category;
 import com.example.demo.interfaces.CategoryRepositoryInterface;
 
+/**
+ * Categoryテーブルのリポジトリ.
+ * @author pengi
+ */
 @Repository
 public class CategoryRepository implements CategoryRepositoryInterface {
 
@@ -53,6 +57,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		return category;
 	};
 
+	/**
+	 *Categoryを１件登録するメソッド.
+	 */
 	@Override
 	public void insert(Category category) {
 
@@ -63,6 +70,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		template.update(sql, param);
 	}
 
+	/**
+	 * Categoryテーブルのnameで検索し、該当するレコードのidを返すメソッド.
+	 */
 	@Override
 	public Integer findId(String name) {
 
@@ -83,6 +93,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		System.out.println("falseCount = " + this.falseCount);
 	}
 
+	/**
+	 *Categoryの全権検索.
+	 */
 	@Override
 	public List<Category> showCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category ;";
@@ -92,6 +105,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		return categoryList;
 	}
 
+	/**
+	 * parentとname_allがnull（大カテゴリ）のものを全権検索.
+	 */
 	@Override
 	public List<Category> showBigCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE parent IS NULL AND name_all IS NULL;";
@@ -101,6 +117,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		return categoryList;
 	}
 
+	/**
+	 * parentがNOT NULLでname_allがNULL（中カテゴリ）のものを全権検索.
+	 */
 	@Override
 	public List<Category> showMiddleCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE parent IS NOT NULL AND name_all IS NULL;";
@@ -110,6 +129,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		return categoryList;
 	}
 
+	/**
+	 * CategoryのすべてNOT NULLのものを全権検索.
+	 */
 	@Override
 	public List<Category> showSmallCategory() {
 		String sql = "SELECT id,parent,name,name_all FROM category WHERE parent IS NOT NULL AND name_all IS NOT NULL;";
@@ -119,6 +141,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		return categoryList;
 	}
 
+	/**
+	 * 中カテゴリのIdでCategoryを１件検索するメソッド.
+	 */
 	@Override
 	public Category findCategory(String middleCategoryId) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NOT NULL AND name_all IS NULL AND id = :middleCategoryId;";
@@ -135,6 +160,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		}
 	}
 
+	/**
+	 * 中カテゴリの名前で検索し、idを返すメソッド.
+	 */
 	@Override
 	public Integer findMiddleId(String middleCategoryName) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NOT NULL AND name_all IS NULL AND name = :middleCategoryName;";
@@ -151,6 +179,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		}
 	}
 
+	/**
+	 *	 * 大カテゴリを名前で検索し、idを取得するメソッド.
+	 */
 	@Override
 	public Integer findBigId(String bigCategoryName) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NULL AND name_all IS NULL AND name = :bigCategoryName;";
@@ -167,6 +198,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		}
 	}
 
+	/**
+	 * 中カテゴリを名前で検索し、idを取得するメソッド.
+	 */
 	@Override
 	public Integer findSmallId(String smallCategoryName) {
 		String sql = "SELECT id,name FROM category WHERE parent IS NOT NULL AND name_all IS NOT NULL AND name = :smallCategoryName;";
@@ -183,6 +217,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		}
 	}
 
+	/**
+	 * 小カテゴリを名前で検索し、idを取得するメソッド.
+	 */
 	@Override
 	public Category findCategory(Integer categoryId) {
 
@@ -199,6 +236,9 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		}
 	}
 
+	/**
+	 * name_allで検索しCategory1件返すメソッド.
+	 */
 	@Override
 	public Category findCategoryByNameAll(String nameAll) {
 

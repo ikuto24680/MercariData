@@ -7,9 +7,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class LoginUser implements UserDetails{
 	
+	/**  ID*/
 	private Integer id;
+	/**  名前*/
 	private String name;
+	/**  パスワード*/
 	private String password;
+	/**  権限*/
 	private Integer authority;
 	public Integer getId() {
 		return id;

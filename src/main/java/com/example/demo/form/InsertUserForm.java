@@ -2,7 +2,9 @@ package com.example.demo.form;
 
 public class InsertUserForm {
 
+	/** 名前　*/
 	private String name;
+	/** パスワード　*/
 	private String password;
 	
 	@Override

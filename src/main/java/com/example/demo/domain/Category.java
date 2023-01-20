@@ -2,9 +2,13 @@ package com.example.demo.domain;
 
 public class Category {
 
+	/**  ID*/
 	private Integer id;
+	/**  親カテゴリID*/
 	private Integer parent;
+	/**  名前*/
 	private String name;
+	/**  全名前*/
 	private String nameAll;
 	public Integer getId() {
 		return id;

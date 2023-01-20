@@ -2,14 +2,19 @@ package com.example.demo.form;
 
 public class ItemSearchForm {
 
+	/** name */
 	private String name;
 	
+	/** カテゴリの一部 */
 	private String bigCategory;
 	
+	/** カテゴリの一部 */
 	private String middleCategory;
 	
+	/** カテゴリの一部 */
 	private String smallCategory;
 	
+	/** ブランド　*/
 	private String brand;
 
 	public String getName() {

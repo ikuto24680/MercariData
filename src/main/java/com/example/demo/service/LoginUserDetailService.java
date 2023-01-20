@@ -13,6 +13,10 @@ import com.example.demo.domain.LoginUserDetails;
 import com.example.demo.form.InsertUserForm;
 import com.example.demo.repository.LoginUesrRepository;
 
+/**
+ * Spring Security用クラス.
+ * @author pengi
+ */
 @Service
 public class LoginUserDetailService implements UserDetailsService {
 
