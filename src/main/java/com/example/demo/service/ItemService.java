@@ -11,6 +11,10 @@ import com.example.demo.form.ItemSearchForm;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ItemRepository;
 
+/**
+ * ItemテーブルのServiceクラス.
+ * @author pengi
+ */
 @Service
 public class ItemService {
 
@@ -20,6 +24,11 @@ public class ItemService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	/**
+	 * 検索フォームをもとに該当するItemリストを返す.
+	 * @param form
+	 * @return
+	 */
 	public List<Item> showList(ItemSearchForm form) {
 		String name = form.getName();
 		StringBuffer sql = new StringBuffer();
@@ -34,18 +43,38 @@ public class ItemService {
 		return itemList;
 	}
 
+	/**
+	 * Itemを１件登録する.
+	 * @param item
+	 */
 	public void addItem(Item item) {
 		itemrepository.insert(item);
 	}
 
+	/**
+	 * 指定されたページのリストを返す.
+	 * @param pageCount
+	 * @return
+	 */
 	public List<ItemCategory> findList(Integer pageCount) {
 		return itemrepository.findList(pageCount);
 	}
 
+	/**
+	 * 指定されたidのItemを返す
+	 * @param itemId
+	 * @return
+	 */
 	public ItemCategory searchDetail(Integer itemId) {
 		return itemrepository.searchDetail(itemId);
 	}
 
+	/**
+	 * 検索されたリストのページング機能.
+	 * @param form
+	 * @param page
+	 * @return
+	 */
 	public List<ItemCategory> findBySearchForm(ItemSearchForm form, Integer page) {
 
 		String name = form.getName();
@@ -67,6 +96,10 @@ public class ItemService {
 		return itemrepository.findBySearchForm(name, brand, categoryId, page);
 	}
 
+	/**
+	 * 入力された箇所含めItemゴト更新する.
+	 * @param item
+	 */
 	public void edit(Item item) {
 		itemrepository.update(item);
 	}

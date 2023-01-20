@@ -65,14 +65,14 @@ public interface CategoryRepositoryInterface {
 	public Integer findBigId(String bigCategoryName);
 	
 	/**
-	 * 中カテゴリを名前で検索し、idを取得するメソッド.
+	 * 小カテゴリを名前で検索し、idを取得するメソッド.
 	 * @param smallCategoryName
 	 * @return
 	 */
 	public Integer findSmallId(String smallCategoryName);
 	
 	/**
-	 * 小カテゴリを名前で検索し、idを取得するメソッド.
+	 * カテゴリを名前で検索し、idを取得するメソッド.
 	 * @param categoryId
 	 * @return
 	 */

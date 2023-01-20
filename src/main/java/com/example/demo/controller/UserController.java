@@ -11,6 +11,10 @@ import com.example.demo.form.InsertUserForm;
 import com.example.demo.form.loginForm;
 import com.example.demo.service.LoginUserDetailService;
 
+/**
+ * Userのログイン、ログアウト、登録に関するコントローラ.
+ * @author pengi
+ */
 @Controller
 @RequestMapping("/")
 public class UserController {
@@ -24,6 +28,11 @@ public class UserController {
 		return "login";
 	}
 	
+	/**
+	 * ログインメソッド（ほぼSpring　Securityが行う）.
+	 * @param form
+	 * @return
+	 */
 	@RequestMapping("/login")
 	public String login(loginForm form) {
 //		if(!userService.login(form)){
@@ -35,12 +44,22 @@ public class UserController {
 		return "redirect:/item/list";
 	}
 	
+	/**
+	 * ユーザー登録画面に遷移するメソッド.
+	 * @return
+	 */
 	@GetMapping("/toRegister")
 	public String register() {
 		
 		return "register";
 	}
 	
+	/**
+	 * ユーザーを登録するメソッド.
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/register")
 	public String register(InsertUserForm form,Model model) {
 		userService.register(form,model);

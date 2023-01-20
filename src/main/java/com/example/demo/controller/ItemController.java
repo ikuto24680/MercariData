@@ -21,6 +21,10 @@ import com.example.demo.form.ItemSearchForm;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ItemService;
 
+/**
+ * ItemやCategoryにかんするコントローラ
+ * @author pengi
+ */
 @Controller
 @RequestMapping("/item")
 public class ItemController {
@@ -40,6 +44,13 @@ public class ItemController {
 	String searchSmall = "";
 	boolean search = false;
 
+	/**
+	 * 検索フォームとページングに基づいて該当のListを返し、listに遷移する.
+	 * @param form
+	 * @param model
+	 * @param page
+	 * @return
+	 */
 	@GetMapping("/search")
 	public String showList(ItemSearchForm form, Model model, Integer page) {
 		ListPageCount = 0;
@@ -66,6 +77,12 @@ public class ItemController {
 		return "list";
 	}
 
+	/**
+	 * デフォルトのItemlist表示に遷移する.
+	 * @param model
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/list")
 	public String list(Model model, Integer page) {
 		List<ItemCategory> itemList;
@@ -107,6 +124,12 @@ public class ItemController {
 		return "list";
 	}
 
+	/**
+	 * 指定されたItemの詳細画面に遷移する.
+	 * @param itemId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/detail")
 	public String detail(Integer itemId, Model model) {
 		ItemCategory detail = itemService.searchDetail(itemId);
@@ -114,6 +137,11 @@ public class ItemController {
 		return "detail";
 	}
 
+	/**
+	 * Item追加画面に遷移する.
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/toAdd")
 	public String toAdd(Model model) {
 
@@ -127,6 +155,11 @@ public class ItemController {
 		return "add";
 	}
 
+	/**
+	 * Itemを登録する.
+	 * @param form
+	 * @return
+	 */
 	@PostMapping("/add")
 	public String add(ItemAddForm form) {
 		Item item = new Item();
@@ -152,6 +185,11 @@ public class ItemController {
 		return "redirect:/item/showList";
 	}
 
+	/**
+	 * 大カテゴリをプルダウンで選択時に中カテゴリを取得するAjax通信内でのメソッド.
+	 * @param bigCategory
+	 * @return
+	 */
 	@ResponseBody
 	@PostMapping("/middle")
 	public List<Category> middle(String bigCategory) {
@@ -168,6 +206,11 @@ public class ItemController {
 		return middleList;
 	}
 
+	/**
+	 * 中カテゴリをプルダウンで選択時に小カテゴリを取得するAjax通信内でのメソッド.
+	 * @param middleCategory
+	 * @return
+	 */
 	@ResponseBody
 	@PostMapping("/small")
 	public List<Category> small(String middleCategory) {
@@ -182,6 +225,12 @@ public class ItemController {
 		return smallList;
 	}
 
+	/**
+	 * Itemの編集画面へ遷移する.
+	 * @param itemId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/toEdit")
 	public String edit(Integer itemId, Model model) {
 		ItemCategory detail = itemService.searchDetail(itemId);
@@ -203,6 +252,12 @@ public class ItemController {
 		return "edit";
 	}
 
+	/**
+	 * 入力されたItem情報に更新する.
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/edit")
 	public String edit(ItemEditForm form, Model model) {
 		Item item = new Item();

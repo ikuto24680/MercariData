@@ -5,6 +5,11 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * Spring Security用.
+ * @author pengi
+ *
+ */
 public class LoginUserDetails implements UserDetails {
 
 	/**

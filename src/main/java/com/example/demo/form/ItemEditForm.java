@@ -2,24 +2,34 @@ package com.example.demo.form;
 
 public class ItemEditForm {
 	
+	/** Id */
 	private Integer id;
 
+	/** 名前　*/
 	private String name;
 	
+	/** 値段　*/
 	private Double price;
 
+	/** カテゴリの一部　*/
 	private String bigCategory;
 
+	/** カテゴリの一部　*/
 	private String middleCategory;
 
+	/** カテゴリの一部　*/
 	private String smallCategory;
 
+	/** ブランド */
 	private String brand;
 	
+	/** コンディション　*/
 	private Integer condition;
 	
+	/** 発送単位　*/
 	private Integer shipping;
 	
+	/** 商品説明　*/
 	private String description;
 
 	public Integer getId() {

@@ -1,13 +1,21 @@
 package com.example.demo.domain;
 
 public class ItemCategory {
+	/**  ID*/
 	private Integer id;
+	/**  名前*/
 	private String name;
+	/**  コンディション*/
 	private Integer condition;
+	/**  name_all*/
 	private String nameAll;
+	/**  ブランド*/
 	private String brand;
+	/**  値段*/
 	private Double price;
+	/**  発送単位*/
 	private Integer shipping;
+	/**  商品説明*/
 	private String description;
 	
 	public Integer getId() {

@@ -15,6 +15,10 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.domain.Item;
 import com.example.demo.domain.ItemCategory;
 
+/**
+ * itemテーブルのリポジトリ.
+ * @author pengi
+ */
 @Repository
 public class ItemRepository {
 
@@ -59,6 +63,10 @@ public class ItemRepository {
 		return itemList;
 	};
 
+	/**
+	 * Itemを１件登録する.
+	 * @param item
+	 */
 	public void insert(Item item) {
 
 		String sql = "INSERT INTO items (name,condition,category,brand,price,shipping,description) VALUES (:name,:condition,:category,:brand,:price,:shipping,:description);";
@@ -69,11 +77,12 @@ public class ItemRepository {
 	}
 
 	/**
-	 * @param itemName
-	 * @param allCategory
-	 * @param brand
-	 * @param startPage
-	 * @param endPage
+	 * 検索Formに入力されたものから検索し、該当のリストを返すメソッド.
+	 * @param itemName　商品名
+	 * @param allCategory　カテゴリ
+	 * @param brand　ブランド
+	 * @param startPage　最初のページ
+	 * @param endPage　終わりのページ
 	 * @return
 	 */
 	public List<Item> findAllSelection(String itemName, Integer allCategory, String brand, Integer startPage,
@@ -88,6 +97,11 @@ public class ItemRepository {
 		return template.query(sql, param, ITEM_LIST_ROW_MAPPER);
 	}
 
+	/**
+	 * 選択されたページのリストを返すメソッド.
+	 * @param pageCount
+	 * @return
+	 */
 	public List<ItemCategory> findList(Integer pageCount) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description FROM items i JOIN Category c ON i.category = c.id ORDER BY i.name ");
@@ -102,6 +116,11 @@ public class ItemRepository {
 		return template.query(sql.toString(), ITEM_RESULTSET_EXTRACTOR);
 	}
 
+	/**
+	 * 選択された商品のIdからItemを１件返すメソッド.
+	 * @param itemId
+	 * @return
+	 */
 	public ItemCategory searchDetail(Integer itemId) {
 		String sql = "SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description FROM items i JOIN category c ON i.category = c.id WHERE i.id = :itemId;";
 
@@ -113,6 +132,14 @@ public class ItemRepository {
 
 	}
 
+	/**
+	 * 検索Formに入力されたものから検索し、該当のリストを返すメソッド.
+	 * @param name
+	 * @param brand
+	 * @param categoryId
+	 * @param page
+	 * @return
+	 */
 	public List<ItemCategory> findBySearchForm(String name, String brand, Integer categoryId,Integer page) {
 
 		Integer andNum = 0;// 次ANDが必要なときは1にする
@@ -161,6 +188,10 @@ public class ItemRepository {
 		return itemList;
 	}
 	
+	/**
+	 * itemを更新するメソッド.
+	 * @param item
+	 */
 	public void update(Item item) {
 		System.out.println("item = "+ item);
 		System.out.println("update文の前のitemのid　="+item.getId());
@@ -172,4 +203,3 @@ public class ItemRepository {
 		System.out.println("update完了したよん");
 	}
 }
-	// 検索フォームから検索する用のメソッドもつくるorResultSetに置き換える。

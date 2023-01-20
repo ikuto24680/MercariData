@@ -2,15 +2,25 @@ package com.example.demo.form;
 
 public class ItemAddForm {
 
+	/** 名前　*/
 	private String name;
+	/** 値段*/
 	private String price;
+	/** カテゴリの一部*/
 	private String bigCategory;
+	/** カテゴリの一部*/
 	private String middleCategory;
+	/** カテゴリの一部*/
 	private String smallCategory;
+	/** ブランド*/
 	private String brand;
+	/** コンディション*/
 	private String condition;
+	/** 発送単位*/
 	private String shipping;
+	/** 商品説明*/
 	private String description;
+	
 	public String getName() {
 		return name;
 	}
