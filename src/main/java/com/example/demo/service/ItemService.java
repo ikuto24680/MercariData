@@ -25,25 +25,6 @@ public class ItemService {
 	private CategoryRepository categoryRepository;
 
 	/**
-	 * 検索フォームをもとに該当するItemリストを返す.
-	 * @param form
-	 * @return
-	 */
-	public List<Item> showList(ItemSearchForm form) {
-		String name = form.getName();
-		StringBuffer sql = new StringBuffer();
-
-		sql.append("SELECT id,name,condition,category,brand,price,shipping,description FROM items WHERE ");
-		if (name != null) {
-			sql.append(" name LIKE '%:name%' ");
-		}
-
-		List<Item> itemList = null;
-
-		return itemList;
-	}
-
-	/**
 	 * Itemを１件登録する.
 	 * @param item
 	 */
