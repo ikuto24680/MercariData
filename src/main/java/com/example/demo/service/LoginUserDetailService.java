@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 
 import com.example.demo.domain.LoginUser;
 import com.example.demo.domain.LoginUserDetails;
@@ -29,16 +32,15 @@ public class LoginUserDetailService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		try {
-			LoginUser user = repo.findByMail(username);
-			String password = user.getPassword();
+			List<LoginUser> user = repo.findByMail(username);
+			if(CollectionUtils.isEmpty(user)) {
+				throw new UsernameNotFoundException("user not found.");				
+			}
+			String password = user.get(0).getPassword();
 			LoginUser loginUser = new LoginUser();
 			loginUser.setName(username);
 			loginUser.setPassword(password);
 			return new LoginUserDetails(loginUser);
-		} catch (Exception e) {
-			throw new UsernameNotFoundException("user not found.", e);
-		}
 	}
 
 	// signupメソッド（登録メソッドと同義）
