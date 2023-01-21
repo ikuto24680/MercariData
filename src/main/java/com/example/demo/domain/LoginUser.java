@@ -9,24 +9,26 @@ public class LoginUser implements UserDetails {
 
 	/** ID */
 	private Integer id;
-//	/**  名前*/
-//	private String name;
-//	/**  パスワード*/
-//	private String password;
-	private User user;
+	/**  名前*/
+	private String name;
+	/**  パスワード*/
+	private String password;
+//	private User user;
 	/** 権限 */
 	private Integer authority;
 
-	public LoginUser(String name,String password, Integer id, Integer authority) {
-		user.setName(name);
-		user.setPassword(password);
-		this.id = id;
-		this.authority = authority;
-	}
-	
-	public LoginUser() {
-		
-	}
+//	public LoginUser(String name,String password, Integer id, Integer authority) {
+//		user.setName(name);
+//		user.setPassword(password);
+//		this.id = id;
+//		this.authority = authority;
+//	}
+//	
+//	public LoginUser() {
+//		
+//	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -35,27 +37,21 @@ public class LoginUser implements UserDetails {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public void setUser(String name,String password) {
-		user.setName(name);
-		user.setPassword(password);
-	}
 
 	public String getName() {
-		return user.getName();
+		return name;
 	}
 
 	public void setName(String name) {
-		user.setName(name);
-		;
+		this.name = name;
 	}
 
 	public String getPassword() {
-		return user.getPassword();
+		return password;
 	}
 
 	public void setPassword(String password) {
-		user.setPassword(password);
+		this.password = password;
 	}
 
 	public Integer getAuthority() {
@@ -67,11 +63,15 @@ public class LoginUser implements UserDetails {
 	}
 
 	@Override
+	public String toString() {
+		return "LoginUser [id=" + id + ", name=" + name + ", password=" + password + ", authority=" + authority + "]";
+	}
+
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
