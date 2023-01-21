@@ -27,13 +27,11 @@ public class LoginUesrRepository {
 		template.update(sql, param);
 	}
 	
-	public LoginUser findByMail(String name) {
-		System.out.println("findByMailのname = "+name);
+	public List<LoginUser> findByMail(String name) {
 		String sql = "SELECT id, name,password,authority FROM users WHERE name=:name;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
 		List<LoginUser> user = template.query(sql, param, USER_ROW_MAPPER);
-		System.out.println("findByMailおーわり"+user);
-		return user.get(0);
+		return user;
 	}
 	
 	public LoginUser findByMailAndPassword(String name, String password) {
