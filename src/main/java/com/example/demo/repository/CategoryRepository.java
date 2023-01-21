@@ -23,10 +23,6 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
-	int trueCount = 0;
-	int falseCount = 0;
-	List<String> falseList;
-
 	@Autowired
 	private static final RowMapper<Category> CATEGORY_ROW_MAPPER = (rs, i) -> {
 
@@ -86,11 +82,6 @@ public class CategoryRepository implements CategoryRepositoryInterface {
 		} catch (Exception e) {
 			return null;
 		}
-	}
-
-	public void showResult() {
-		System.out.println("trueCount = " + this.trueCount);
-		System.out.println("falseCount = " + this.falseCount);
 	}
 
 	/**
