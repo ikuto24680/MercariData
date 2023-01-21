@@ -46,12 +46,13 @@
     <h2>Add</h2>
 
     <!-- add form -->
-    <form action="#" method="POST" class="form-horizontal" th:action="@{/item/add}" >
+    <form action="#" method="POST" class="form-horizontal" th:action="@{/item/add}" th:object="${itemAddForm}">
       <!-- name -->
       <div class="form-group">
         <label for="inputName" class="col-sm-2 control-label">name</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" id="inputName" name="name"/>
+        <div th:errors="*{name}" style="color:red"></div>
+          <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}"/>
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
@@ -59,7 +60,8 @@
       <div class="form-group">
         <label for="price" class="col-sm-2 control-label">price</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" id="price" name="price"/>
+        <div th:errors="*{price}" style="color:red"></div>
+          <input type="text" class="form-control" id="price" name="price" th:field="*{price}"/>
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
@@ -67,14 +69,16 @@
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label">category</label>
         <div class="col-sm-8">
+        <div th:errors="*{bigCategory}" style="color:red"></div>
           <select class="form-control" name="bigCategory" id="bigCategory">
-            <option th:each="bigCategory : ${bigCategoryList}" th:value="${bigCategory.name}" th:text="${bigCategory.name}">bigCategory1</option>
+            <option th:each="bigCategory : ${bigCategoryList}" th:value="${bigCategory.name}" th:text="${bigCategory.name}" >bigCategory1</option>
           </select>
         </div>
       </div>
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label"></label>
         <div class="col-sm-8">
+        <div th:errors="*{middleCategory}" style="color:red"></div>
           <select class="form-control" name="middleCategory" id="middleCategory">
             <option th:each="middleCategory : ${middleList}" th:value="${middleCategory.name}" th:text="${middleCategory.name}">middleCategory1</option>
           </select>
@@ -83,6 +87,7 @@
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label"></label>
         <div class="col-sm-8">
+        <div th:errors="*{smallCategory}" style="color:red"></div>
           <select class="form-control" name="smallCategory" id="smallCategory">
             <option th:each="smallCategory : ${smallList}" th:value="${smallCategory.name}" th:text="${smallCategory.name}">smallCategory1</option>
           </select>
@@ -98,7 +103,8 @@
       <div class="form-group">
         <label for="brand" class="col-sm-2 control-label">brand</label>
         <div class="col-sm-8">
-          <input type="text" id="brand" class="form-control" name="brand"/>
+        <div th:errors="*{brand}" style="color:red"></div>
+          <input type="text" id="brand" class="form-control" name="brand" th:fielf="*{brand}"/>
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
@@ -127,7 +133,8 @@
       <div class="form-group">
         <label for="shipping" class="col-sm-2 control-label">shipping</label>
         <div class="col-sm-8">
-          <input type="text" id="shipping" class="form-control" name="shipping"/>
+        <div th:errors="*{shipping}" style="color:red"></div>
+          <input type="text" id="shipping" class="form-control" name="shipping" th:field="*{shipping}"/>
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
@@ -135,7 +142,8 @@
       <div class="form-group">
         <label for="description" class="col-sm-2 control-label">description</label>
         <div class="col-sm-8">
-          <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+        <div th:errors="*{description}" style="color:red"></div>
+          <textarea name="description" id="description" class="form-control" rows="5" th:field="*{description}"></textarea>
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>

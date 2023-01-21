@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -132,7 +134,7 @@ public class ItemController {
 	 * @return
 	 */
 	@GetMapping("/toAdd")
-	public String toAdd(Model model) {
+	public String toAdd(Model model,ItemAddForm form) {
 
 		List<Category> bigCategoryList = categoryService.showBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
@@ -146,7 +148,14 @@ public class ItemController {
 	 * @return
 	 */
 	@PostMapping("/add")
-	public String add(ItemAddForm form) {
+	public String add(@Validated ItemAddForm form,BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			model.addAttribute("form",form);
+			List<Category> bigCategoryList = categoryService.showBigCategory();
+			model.addAttribute("bigCategoryList", bigCategoryList);
+			return "add";
+		}
+		System.out.println("result.hasError()を通過した。");
 		Item item = new Item();
 		Integer categoryId = 0;
 		if ((form.getBigCategory() == null && form.getMiddleCategory() == null) && form.getSmallCategory() == null) {
@@ -167,7 +176,8 @@ public class ItemController {
 		item.setPrice(Double.parseDouble(form.getPrice()));
 		item.setShipping(Integer.parseInt(form.getShipping()));
 		itemService.addItem(item);
-		return "redirect:/item/showList";
+		System.out.println("リダイレクトの直前");
+		return "redirect:/item/list";
 	}
 
 	/**
