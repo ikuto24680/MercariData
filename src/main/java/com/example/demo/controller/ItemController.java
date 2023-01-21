@@ -192,15 +192,17 @@ public class ItemController {
 		List<Category> middleList = new ArrayList<>();
 		Integer bigCategoryId = categoryService.findId(bigCategory);
 		List<Category> middleCategoryList = categoryService.showMiddleCategory();
-		for (Category middle : middleCategoryList) {
-			if (middle.getParent() == bigCategoryId) {
+//		for (Category middle : middleCategoryList) {
+//			if (middle.getParent() == bigCategoryId) {
+//				middleList.add(middle);
+//			}
+//		}
+		middleCategoryList.forEach(middle -> {
+			if(middle.getParent() == bigCategoryId)
 				middleList.add(middle);
-			}
-		}
-
+		});
 		return middleList;
 	}
-
 	/**
 	 * 中カテゴリをプルダウンで選択時に小カテゴリを取得するAjax通信内でのメソッド.
 	 * @param middleCategory
@@ -212,11 +214,17 @@ public class ItemController {
 		List<Category> smallList = new ArrayList<>();
 		Integer MC = categoryService.findId(middleCategory);
 		List<Category> smallCategoryList = categoryService.showSmallCategory();
-		for (Category small : smallCategoryList) {
-			if (small.getParent() == MC) {
-				smallList.add(small);
-			}
+//		for (Category small : smallCategoryList) {
+//			if (small.getParent() == MC) {
+//				smallList.add(small);
+//			}
+//		}
+	
+		smallCategoryList.forEach(small -> {
+			if(small.getParent() == MC)
+				smallList.add(small);			
 		}
+		);
 		return smallList;
 	}
 
