@@ -1,24 +1,35 @@
 package com.example.demo.form;
 
+import javax.validation.constraints.NotBlank;
+
 public class ItemAddForm {
 
 	/** 名前　*/
+	@NotBlank(message="名前は必須です")
 	private String name;
 	/** 値段*/
+	@NotBlank(message="値段は必須です")
 	private String price;
 	/** カテゴリの一部*/
+	@NotBlank(message="カテゴリは必須です")
 	private String bigCategory;
 	/** カテゴリの一部*/
+	@NotBlank(message="カテゴリは必須です")
 	private String middleCategory;
 	/** カテゴリの一部*/
+	@NotBlank(message="カテゴリは必須です")
 	private String smallCategory;
 	/** ブランド*/
+	@NotBlank(message="ブランド名は必須です")
 	private String brand;
 	/** コンディション*/
+	@NotBlank(message="コンディションは必須です")
 	private String condition;
 	/** 発送単位*/
+	@NotBlank(message="発送単位は必須です")
 	private String shipping;
 	/** 商品説明*/
+	@NotBlank(message="商品説明は必須です")
 	private String description;
 	
 	public String getName() {
