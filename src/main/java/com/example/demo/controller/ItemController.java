@@ -66,10 +66,6 @@ public class ItemController {
 		
 		List<Category> bigCategoryList = categoryService.showBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
-		List<Category> middleCategoryList = categoryService.showMiddleCategory();
-		model.addAttribute("middleCategoryList", middleCategoryList);
-		List<Category> smallCategoryList = categoryService.showSmallCategory();
-		model.addAttribute("smallCategoryList", smallCategoryList);
 		return "list";
 	}
 
@@ -110,10 +106,6 @@ public class ItemController {
 
 		List<Category> bigCategoryList = categoryService.showBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
-		List<Category> middleCategoryList = categoryService.showMiddleCategory();
-		model.addAttribute("middleCategoryList", middleCategoryList);
-		List<Category> smallCategoryList = categoryService.showSmallCategory();
-		model.addAttribute("smallCategoryList", smallCategoryList);
 
 		return "list";
 	}
@@ -144,10 +136,6 @@ public class ItemController {
 
 		List<Category> bigCategoryList = categoryService.showBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
-		List<Category> middleCategoryList = categoryService.showMiddleCategory();
-		model.addAttribute("middleCategoryList", middleCategoryList);
-		List<Category> smallCategoryList = categoryService.showSmallCategory();
-		model.addAttribute("smallCategoryList", smallCategoryList);
 
 		return "add";
 	}
