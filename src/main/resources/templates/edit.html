@@ -62,6 +62,7 @@
 		<form action="#" method="POST" class="form-horizontal"
 			th:action="@{/item/edit}" th:object="${detail}">
 			<input type="hidden" name="id" th:value="*{id}">
+			<input type="hidden" name="version" th:value="*{version}">
 			<!-- name -->
 			<div class="form-group">
 				<label for="inputName" class="col-sm-2 control-label">name</label>

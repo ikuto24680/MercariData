@@ -17,7 +17,8 @@ public class ItemCategory {
 	private Integer shipping;
 	/**  商品説明*/
 	private String description;
-	
+	/** バージョン　*/
+	private Integer version;
 	public Integer getId() {
 		return id;
 	}
@@ -66,11 +67,17 @@ public class ItemCategory {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 	@Override
 	public String toString() {
 		return "ItemCategory [id=" + id + ", name=" + name + ", condition=" + condition + ", nameAll=" + nameAll
 				+ ", brand=" + brand + ", price=" + price + ", shipping=" + shipping + ", description=" + description
-				+ "]";
+				+ ", version=" + version + "]";
 	}
 	
 }

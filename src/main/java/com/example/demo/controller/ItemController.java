@@ -181,6 +181,7 @@ public class ItemController {
 		item.setCondition(Integer.parseInt(form.getCondition()));
 		item.setPrice(Double.parseDouble(form.getPrice()));
 		item.setShipping(Integer.parseInt(form.getShipping()));
+		item.setVersion(1);
 		itemService.addItem(item);
 		System.out.println("リダイレクトの直前");
 		return "redirect:/item/list";
@@ -275,14 +276,10 @@ public class ItemController {
 	 * @return
 	 */
 	@PostMapping("/edit")
-	public String edit(ItemEditForm form, Model model) {
-		Item item = new Item();
-		BeanUtils.copyProperties(form, item);
-		item.setCategory((categoryService.findCategoryByNameAll(
-				form.getBigCategory() + "/" + form.getMiddleCategory() + "/" + form.getSmallCategory())).getId());
-		itemService.edit(item);
-		ItemCategory detail = itemService.searchDetail(form.getId());
-		model.addAttribute("detail", detail);
+	public String edit(ItemEditForm form,Model model) {
+		
+		itemService.edit(form,model);
+		
 		return "detail";
 	}
 

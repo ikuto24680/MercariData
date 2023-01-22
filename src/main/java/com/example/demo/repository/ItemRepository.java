@@ -35,6 +35,7 @@ public class ItemRepository {
 		item.setBrand(rs.getString("brand"));
 		item.setShipping(rs.getInt("shipping"));
 		item.setDescription(rs.getString("description"));
+		item.setVersion(rs.getInt("version"));
 		return item;
 	};
 
@@ -56,6 +57,7 @@ public class ItemRepository {
 				item.setPrice(Double.parseDouble(rs.getString("i_price")));
 				item.setShipping(rs.getInt("i_shipping"));
 				item.setDescription(rs.getString("i_description"));
+				item.setVersion(rs.getInt("i_version"));
 				beforeItemCategoryId = rs.getInt("i_id");
 				itemList.add(item);
 			}
@@ -69,7 +71,7 @@ public class ItemRepository {
 	 */
 	public void insert(Item item) {
 
-		String sql = "INSERT INTO items (name,condition,category,brand,price,shipping,description) VALUES (:name,:condition,:category,:brand,:price,:shipping,:description);";
+		String sql = "INSERT INTO items (name,condition,category,brand,price,shipping,description,version) VALUES (:name,:condition,:category,:brand,:price,:shipping,:description,:version);";
 
 		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
 
@@ -88,7 +90,7 @@ public class ItemRepository {
 	public List<Item> findAllSelection(String itemName, Integer allCategory, String brand, Integer startPage,
 			Integer endPage) {
 
-		String sql = "SELECT id,name,condition,category,brand,price,shipping,description FROM items WHERE name = :itemName AND category = :allCategory AND brand = :brand AND ORDER BY name;";
+		String sql = "SELECT id,name,condition,category,brand,price,shipping,description,version FROM items WHERE name = :itemName AND category = :allCategory AND brand = :brand AND ORDER BY name;";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("itemName", itemName)
 				.addValue("allCategory", allCategory).addValue("brand", brand).addValue("startPage", startPage)
@@ -104,7 +106,7 @@ public class ItemRepository {
 	 */
 	public List<ItemCategory> findList(Integer pageCount) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description FROM items i JOIN Category c ON i.category = c.id ORDER BY i.name ");
+		sql.append("SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description,i.version i_version FROM items i JOIN Category c ON i.category = c.id ORDER BY i.name ");
 
 		if(pageCount==0) {
 			sql.append(" LIMIT 30");
@@ -122,7 +124,7 @@ public class ItemRepository {
 	 * @return
 	 */
 	public ItemCategory searchDetail(Integer itemId) {
-		String sql = "SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description FROM items i JOIN category c ON i.category = c.id WHERE i.id = :itemId;";
+		String sql = "SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description,i.version i_version FROM items i JOIN category c ON i.category = c.id WHERE i.id = :itemId;";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
 
@@ -145,7 +147,7 @@ public class ItemRepository {
 		Integer andNum = 0;// 次ANDが必要なときは1にする
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description FROM items i JOIN category c ON i.category = c.id ");
+		sql.append("SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description,i.version i_version FROM items i JOIN category c ON i.category = c.id ");
 
 		if((!name.equals("")||!brand.equals(""))||categoryId!=null) {
 			sql.append(" WHERE ");
@@ -193,13 +195,8 @@ public class ItemRepository {
 	 * @param item
 	 */
 	public void update(Item item) {
-		System.out.println("item = "+ item);
-		System.out.println("update文の前のitemのid　="+item.getId());
-		
-		String sql = "UPDATE items SET name = :name,condition = :condition,category = :category,brand = :brand,price = :price,shipping = :shipping,description =:description WHERE id = :id;";
-		
+		String sql = "UPDATE items SET name = :name,condition = :condition,category = :category,brand = :brand,price = :price,shipping = :shipping,description =:description ,version = (:version + 1) WHERE id = :id AND version = :version;";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
 		template.update(sql, param);
-		System.out.println("update完了したよん");
 	}
 }

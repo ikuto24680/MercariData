@@ -1,36 +1,38 @@
 package com.example.demo.form;
 
 public class ItemEditForm {
-	
+
 	/** Id */
 	private Integer id;
 
-	/** 名前　*/
+	/** 名前 */
 	private String name;
-	
-	/** 値段　*/
+
+	/** 値段 */
 	private Double price;
 
-	/** カテゴリの一部　*/
+	/** カテゴリの一部 */
 	private String bigCategory;
 
-	/** カテゴリの一部　*/
+	/** カテゴリの一部 */
 	private String middleCategory;
 
-	/** カテゴリの一部　*/
+	/** カテゴリの一部 */
 	private String smallCategory;
 
 	/** ブランド */
 	private String brand;
-	
-	/** コンディション　*/
+
+	/** コンディション */
 	private Integer condition;
-	
-	/** 発送単位　*/
+
+	/** 発送単位 */
 	private Integer shipping;
-	
-	/** 商品説明　*/
+
+	/** 商品説明 */
 	private String description;
+	/** バージョン */
+	private Integer version;
 
 	public Integer getId() {
 		return id;
@@ -112,12 +114,19 @@ public class ItemEditForm {
 		this.description = description;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemEditForm [id=" + id + ", name=" + name + ", price=" + price + ", bigCategory=" + bigCategory
 				+ ", middleCategory=" + middleCategory + ", smallCategory=" + smallCategory + ", brand=" + brand
-				+ ", condition=" + condition + ", shipping=" + shipping + ", description=" + description + "]";
+				+ ", condition=" + condition + ", shipping=" + shipping + ", description=" + description + ", version="
+				+ version + "]";
 	}
-
-
 }
