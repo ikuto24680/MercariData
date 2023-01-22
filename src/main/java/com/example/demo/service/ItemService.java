@@ -82,15 +82,12 @@ public class ItemService {
 	@Transactional
 	public void edit(ItemEditForm form,Model model) {
 		
-		System.out.println("form = "+form);
 		Item item = new Item();
 		BeanUtils.copyProperties(form, item);
 		item.setCategory((categoryRepository.findCategoryByNameAll(
 				form.getBigCategory() + "/" + form.getMiddleCategory() + "/" + form.getSmallCategory())).getId());
-		System.out.println("item = "+item);
 		itemrepository.update(item);
 		ItemCategory detail = itemrepository.searchDetail(form.getId());
-		System.out.println("detail = "+detail);
 		if((form.getVersion() +1) != detail.getVersion()) {
 			throw new IllegalStateException("Data is Stale. Please Retry");
 		}
