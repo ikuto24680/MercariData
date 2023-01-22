@@ -29,6 +29,7 @@ import com.example.demo.service.ItemService;
 
 /**
  * ItemやCategoryにかんするコントローラ
+ * 
  * @author pengi
  */
 @Controller
@@ -43,6 +44,7 @@ public class ItemController {
 
 	/**
 	 * 検索フォームとページングに基づいて該当のListを返し、listに遷移する.
+	 * 
 	 * @param form
 	 * @param model
 	 * @param page
@@ -50,9 +52,9 @@ public class ItemController {
 	 */
 	@GetMapping("/search")
 	public String showList(ItemSearchForm form, Model model, Integer page) {
-		
+
 		PageCount.setPageCount(0);
-		
+
 		SearchItem searchItemInstance = SearchItem.getSearchItemForm();
 		SearchItem.resetItemSearchForm();
 
@@ -65,7 +67,7 @@ public class ItemController {
 		searchItemInstance.setSmallCategory(form.getSmallCategory());
 		searchItemInstance.setBrand(form.getBrand());
 		searchItemInstance.setSearch(true);
-		
+
 		List<Category> bigCategoryList = categoryService.showBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
 		return "list";
@@ -73,6 +75,7 @@ public class ItemController {
 
 	/**
 	 * デフォルトのItemlist表示に遷移する.
+	 * 
 	 * @param model
 	 * @param page
 	 * @return
@@ -114,27 +117,29 @@ public class ItemController {
 
 	/**
 	 * 指定されたItemの詳細画面に遷移する.
+	 * 
 	 * @param itemId
 	 * @param model
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@GetMapping("/detail")
 	public String detail(Integer itemId, Model model) throws Exception {
 		ItemCategory detail = itemService.searchDetail(itemId);
 		model.addAttribute("detail", detail);
 		Condition condition = ItemConstant.ConditionSwitch(detail.getCondition());
-		model.addAttribute("condition",condition);
+		model.addAttribute("condition", condition);
 		return "detail";
 	}
 
 	/**
 	 * Item追加画面に遷移する.
+	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/toAdd")
-	public String toAdd(Model model,ItemAddForm form) {
+	public String toAdd(Model model, ItemAddForm form) {
 
 		List<Category> bigCategoryList = categoryService.showBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
@@ -144,13 +149,14 @@ public class ItemController {
 
 	/**
 	 * Itemを登録する.
+	 * 
 	 * @param form
 	 * @return
 	 */
 	@PostMapping("/add")
-	public String add(@Validated ItemAddForm form,BindingResult result, Model model) {
-		if(result.hasErrors()) {
-			model.addAttribute("form",form);
+	public String add(@Validated ItemAddForm form, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("form", form);
 			List<Category> bigCategoryList = categoryService.showBigCategory();
 			model.addAttribute("bigCategoryList", bigCategoryList);
 			return "add";
@@ -182,6 +188,7 @@ public class ItemController {
 
 	/**
 	 * 大カテゴリをプルダウンで選択時に中カテゴリを取得するAjax通信内でのメソッド.
+	 * 
 	 * @param bigCategory
 	 * @return
 	 */
@@ -197,14 +204,18 @@ public class ItemController {
 //				middleList.add(middle);
 //			}
 //		}
-		middleCategoryList.forEach(middle -> {
-			if(middle.getParent() == bigCategoryId)
-				middleList.add(middle);
-		});
+//		middleCategoryList.forEach(middle -> {
+//			if (middle.getParent() == bigCategoryId)
+//				middleList.add(middle);
+//		});
+		
+		middleCategoryList.stream().filter(middle -> middle.getParent() == bigCategoryId).forEach(middle ->middleList.add(middle));
 		return middleList;
 	}
+
 	/**
 	 * 中カテゴリをプルダウンで選択時に小カテゴリを取得するAjax通信内でのメソッド.
+	 * 
 	 * @param middleCategory
 	 * @return
 	 */
@@ -219,17 +230,19 @@ public class ItemController {
 //				smallList.add(small);
 //			}
 //		}
-	
-		smallCategoryList.forEach(small -> {
-			if(small.getParent() == MC)
-				smallList.add(small);			
-		}
-		);
+
+//		smallCategoryList.forEach(small -> {
+//			if (small.getParent() == MC)
+//				smallList.add(small);
+//		});
+		
+		smallCategoryList.stream().filter(small -> small.getParent() == MC).forEach(small -> smallList.add(small));
 		return smallList;
 	}
 
 	/**
 	 * Itemの編集画面へ遷移する.
+	 * 
 	 * @param itemId
 	 * @param model
 	 * @return
@@ -256,6 +269,7 @@ public class ItemController {
 
 	/**
 	 * 入力されたItem情報に更新する.
+	 * 
 	 * @param form
 	 * @param model
 	 * @return
