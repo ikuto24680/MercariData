@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.LockMode;
+import org.springframework.data.relational.repository.Lock;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -69,6 +71,7 @@ public class ItemRepository {
 	 * Itemを１件登録する.
 	 * @param item
 	 */
+	@Lock(LockMode.PESSIMISTIC_READ)
 	public void insert(Item item) {
 
 		String sql = "INSERT INTO items (name,condition,category,brand,price,shipping,description,version) VALUES (:name,:condition,:category,:brand,:price,:shipping,:description,:version);";
