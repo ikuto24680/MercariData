@@ -13,6 +13,7 @@ import com.example.demo.repository.ItemRepository;
 
 /**
  * ItemテーブルのServiceクラス.
+ * 
  * @author pengi
  */
 @Service
@@ -26,6 +27,7 @@ public class ItemService {
 
 	/**
 	 * Itemを１件登録する.
+	 * 
 	 * @param item
 	 */
 	public void addItem(Item item) {
@@ -34,6 +36,7 @@ public class ItemService {
 
 	/**
 	 * 指定されたページのリストを返す.
+	 * 
 	 * @param pageCount
 	 * @return
 	 */
@@ -43,6 +46,7 @@ public class ItemService {
 
 	/**
 	 * 指定されたidのItemを返す
+	 * 
 	 * @param itemId
 	 * @return
 	 */
@@ -52,6 +56,7 @@ public class ItemService {
 
 	/**
 	 * 検索されたリストのページング機能.
+	 * 
 	 * @param form
 	 * @param page
 	 * @return
@@ -60,29 +65,39 @@ public class ItemService {
 
 		String name = form.getName();
 		String brand = form.getBrand();
-		Integer categoryId = 0;
-		if ((form.getBigCategory() == null && form.getMiddleCategory() == null) && form.getSmallCategory() == null) {
-
-		} else if (form.getBigCategory() != null && form.getMiddleCategory() == null
-				&& form.getSmallCategory() == null) {
-			categoryId = categoryRepository.findBigId(form.getBigCategory());
-		} else if ((form.getBigCategory() != null && form.getMiddleCategory() != null)
-				&& form.getSmallCategory() == null) {
-			categoryId = categoryRepository.findMiddleId(form.getMiddleCategory());
-		} else if ((form.getBigCategory() != null && form.getMiddleCategory() != null)
-				&& form.getSmallCategory() != null) {
-			categoryId = categoryRepository.findSmallId(form.getSmallCategory());
-		}
+		Integer categoryId = categoryRepository.findSmallId(selectedCategory(form));
 
 		return itemrepository.findBySearchForm(name, brand, categoryId, page);
 	}
 
 	/**
 	 * 入力された箇所含めItemゴト更新する.
+	 * 
 	 * @param item
 	 */
 	public void edit(Item item) {
 		itemrepository.update(item);
 	}
 
+	/**
+	 * ItemSearchFormから
+	 * @param form
+	 * @return
+	 */
+	public static String selectedCategory(ItemSearchForm form) {
+		String categoryName = null;
+		if ((form.getBigCategory() == null && form.getMiddleCategory() == null) && form.getSmallCategory() == null) {
+
+		} else if (form.getBigCategory() != null && form.getMiddleCategory() == null
+				&& form.getSmallCategory() == null) {
+			categoryName = form.getBigCategory();
+		} else if ((form.getBigCategory() != null && form.getMiddleCategory() != null)
+				&& form.getSmallCategory() == null) {
+			categoryName = form.getMiddleCategory();
+		} else if ((form.getBigCategory() != null && form.getMiddleCategory() != null)
+				&& form.getSmallCategory() != null) {
+			categoryName = form.getSmallCategory();
+		}
+		return categoryName;
+	}
 }
