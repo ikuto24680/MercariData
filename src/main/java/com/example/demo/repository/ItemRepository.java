@@ -127,7 +127,7 @@ public class ItemRepository {
 	 * @return
 	 */
 	public ItemCategory searchDetail(Integer itemId) {
-		String sql = "SELECT i.id i_id,i.name i_name,co.condition co_condition,ca.name_all ca_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,d.description d_description,i.version i_version FROM items i JOIN category c ON i.category = ca.id JOIN Condition co ON i.condition = co.id JOIN description d ON i.description = d.id WHERE i.id = :itemId;";
+		String sql = "SELECT i.id i_id,i.name i_name,co.condition co_condition,ca.name_all ca_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,d.description d_description,i.version i_version FROM items i JOIN category ca ON i.category = ca.id JOIN Condition co ON i.condition = co.id JOIN description d ON i.description = d.id WHERE i.id = :itemId;";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
 
@@ -150,7 +150,7 @@ public class ItemRepository {
 		Integer andNum = 0;// 次ANDが必要なときは1にする
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("SELECT i.id i_id,i.name i_name,co.condition co_condition,ca.name_all ca_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,d.description d_description,i.version i_version FROM items i JOIN category c ON i.category = ca.id JOIN Condition co ON i.condition = co.id JOIN description d ON i.description = d.id ");
+		sql.append("SELECT i.id i_id,i.name i_name,co.condition co_condition,ca.name_all ca_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,d.description d_description,i.version i_version FROM items i JOIN category ca ON i.category = ca.id JOIN Condition co ON i.condition = co.id JOIN description d ON i.description = d.id ");
 
 		if((!name.equals("")||!brand.equals(""))||categoryId!=null) {
 			sql.append(" WHERE ");
