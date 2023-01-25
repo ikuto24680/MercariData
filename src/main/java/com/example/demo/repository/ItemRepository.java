@@ -53,12 +53,12 @@ public class ItemRepository {
 				item = new ItemCategory();
 				item.setId(rs.getInt("i_id"));
 				item.setName(rs.getString("i_name"));
-				item.setCondition(rs.getInt("i_condition"));
-				item.setNameAll(rs.getString("c_name_all"));
+				item.setCondition(rs.getString("co_condition"));
+				item.setNameAll(rs.getString("ca_name_all"));
 				item.setBrand(rs.getString("i_brand"));
 				item.setPrice(Double.parseDouble(rs.getString("i_price")));
 				item.setShipping(rs.getInt("i_shipping"));
-				item.setDescription(rs.getString("i_description"));
+				item.setDescription(rs.getString("d_description"));
 				item.setVersion(rs.getInt("i_version"));
 				beforeItemCategoryId = rs.getInt("i_id");
 				itemList.add(item);
@@ -109,7 +109,7 @@ public class ItemRepository {
 	 */
 	public List<ItemCategory> findList(Integer pageCount) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description,i.version i_version FROM items i JOIN Category c ON i.category = c.id ORDER BY i.name ");
+		sql.append("SELECT i.id i_id,i.name i_name,co.condition co_condition,ca.name_all ca_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,d.description d_description,i.version i_version FROM items i JOIN Category ca ON i.category = ca.id JOIN Condition co ON i.condition = co.id JOIN description d ON i.description = d.id ORDER BY i.name ");
 
 		if(pageCount==0) {
 			sql.append(" LIMIT 30");
@@ -127,7 +127,7 @@ public class ItemRepository {
 	 * @return
 	 */
 	public ItemCategory searchDetail(Integer itemId) {
-		String sql = "SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description,i.version i_version FROM items i JOIN category c ON i.category = c.id WHERE i.id = :itemId;";
+		String sql = "SELECT i.id i_id,i.name i_name,co.condition co_condition,ca.name_all ca_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,d.description d_description,i.version i_version FROM items i JOIN category c ON i.category = ca.id JOIN Condition co ON i.condition = co.id JOIN description d ON i.description = d.id WHERE i.id = :itemId;";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
 
@@ -150,7 +150,7 @@ public class ItemRepository {
 		Integer andNum = 0;// 次ANDが必要なときは1にする
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("SELECT i.id i_id,i.name i_name,i.condition i_condition,c.name_all c_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,i.description i_description,i.version i_version FROM items i JOIN category c ON i.category = c.id ");
+		sql.append("SELECT i.id i_id,i.name i_name,co.condition co_condition,ca.name_all ca_name_all,i.brand i_brand,i.price i_price,i.shipping i_shipping,d.description d_description,i.version i_version FROM items i JOIN category c ON i.category = ca.id JOIN Condition co ON i.condition = co.id JOIN description d ON i.description = d.id ");
 
 		if((!name.equals("")||!brand.equals(""))||categoryId!=null) {
 			sql.append(" WHERE ");
@@ -167,7 +167,7 @@ public class ItemRepository {
 				sql.append(" AND ");
 				andNum = 1;
 			}
-			sql.append(" i.category = " + categoryId + " ");
+			sql.append(" ca.category = " + categoryId + " ");
 		}
 
 		if (!brand.equals("")) {

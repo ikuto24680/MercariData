@@ -1,0 +1,51 @@
+-- category
+create table category (
+   id serial not null
+  , parent integer
+  , name character varying(255)
+  ,name_all character varying(255)
+  , constraint category_PKC primary key (id)
+) ;
+
+-- -- users
+-- create table users (
+--   id serial not null
+--   , name varchar(255)
+--   , password varchar(255)
+--   , authority integer
+--   , constraint users_PKC primary key (id)
+-- ) ;
+
+create table items (
+  id serial not null
+  , name character varying(255)
+  , condition integer
+  , category integer
+  , brand character varying(255)
+  , price double precision
+  , shipping integer
+  , description integer
+  , version integer not null
+  , constraint items_PKC primary key (id)
+  , FOREIGN KEY (category) REFERENCES Category (id)
+  , FOREIGN KEY (description) REFERENCES Description (id)
+  , FOREIGN KEY (condition) REFERENCES Condition (id)
+) ;
+
+create table Description(
+  id serial not null
+  ,  description text
+  , constraint description_PKC primary key (id)
+);
+
+create table Condition (
+  id  integer not null
+  ,condition character varying(10) not null
+  ,constraint condition_PKC primary key (id)
+);
+
+insert into Condition (id,condition) Values (1,'販売中');
+insert into Condition (id,condition) Values (2,'特価販売中');
+insert into Condition (id,condition) Values (3,'販売一時停止');
+insert into Condition (id,condition) Values (4,'未発売');
+insert into Condition (id,condition) Values (5,'販売NG');
