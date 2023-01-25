@@ -127,8 +127,8 @@ public class ItemController {
 	public String detail(Integer itemId, Model model) throws Exception {
 		ItemCategory detail = itemService.searchDetail(itemId);
 		model.addAttribute("detail", detail);
-		Condition condition = ItemConstant.ConditionSwitch(detail.getCondition());
-		model.addAttribute("condition", condition);
+//		Condition condition = ItemConstant.ConditionSwitch(detail.getCondition());
+//		model.addAttribute("condition", condition);
 		return "detail";
 	}
 
